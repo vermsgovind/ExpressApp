@@ -1,36 +1,33 @@
-// This file is for staritng server when we are using array or a json file as database
-
+//In this file are using mongoDB as a database
 import express from "express";
-const app = express();
-
-// importing and using bodypraser
 import bodyParser from "body-parser"; 
-app.use(bodyParser.json()); // bodyparser convert obj to json or json to obj for you
-
-// importing router
 import userRoutes from "./routes/user.js";
-import bookRoutes from "./routes/book.js";
+import mongoose from "mongoose"; // mongoose is a mongoDB client
 
+const app = express();
 const PORT = 8888;
+const dbURL = 'mongodb+srv://vermsgovind:Aashiqui2@@cluster0.qj414.mongodb.net/tutorialApp?retryWrites=true&w=majority';
 
-// Defining main end points
+mongoose.connect(dbURL,{//connect is for starting the database//Also connect returns a promise
+    useNewUrlParser:true,
+    useUnifiedTopology:true
+}).then((result)=>{
+    // console.log("result");
+    console.log("connected to the database");
+    app.listen(PORT,()=>{ // now we are starting server after starting the database
+        console.log(`server is running at http://127.0.0.1:${PORT}`);
+    })
+}).catch((err)=>{
+    console.log(err);
+})
+
+app.use(bodyParser.json());
 
 app.get("/",(req, res)=>{
     res.send("welcome to homepage");
 })
 
-// Router will be used to handle all API,s
-// userRoutes will be used to handle all user type API's
-//for all endpts with prefix "/user" use  userRoutes bz we are
-// handling them in userRoutes
 app.use("/user",userRoutes);
 
 
- //bookRoutes will be used to handle all book type API's
- app.use("/book",bookRoutes);
-
-// starting app
-app.listen(PORT,()=>{
-    console.log(`server is running at http://127.0.0.1:${PORT}`);
-})
 
