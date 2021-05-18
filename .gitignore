@@ -1,7 +1,5 @@
-controller/user2.js
 controller/user3.js
-dataFiles/
 model/
 node_modules/
-service/
+service/util
 index2.js

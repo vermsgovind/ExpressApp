@@ -1,4 +1,4 @@
-// This file is for staritng server when we are using array or a file as database
+// This file is for staritng server when we are using array or a json file as database
 
 import express from "express";
 const app = express();
